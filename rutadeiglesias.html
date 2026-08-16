@@ -329,7 +329,7 @@
             padding-bottom: 8px;
         }
 
-        /* --- NUEVO GRID DE ATRACTIVOS (Con corazones) --- */
+        /* --- NUEVO GRID DE ATRACTIVOS --- */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -363,7 +363,7 @@
         }
 
         .features-grid li::before {
-            content: '❤'; /* CORAZÓN INCORPORADO AQUÍ */
+            content: '❤'; 
             color: var(--cantera-terracotta);
             font-size: 1.2rem;
             flex-shrink: 0;
@@ -433,7 +433,7 @@
             letter-spacing: 1.5px;
             transition: all 0.3s ease;
             box-shadow: 0 6px 20px rgba(180, 83, 9, 0.3);
-            cursor: pointer; /* Añadido cursor para interactividad */
+            cursor: pointer; 
         }
 
         .btn-explore-catalogue:hover {
@@ -493,7 +493,8 @@
 
         <!-- Barra Superior -->
         <div class="top-action-bar">
-            <a href="https://carloschaires.github.io/vivesanmigueL/sitiosdeinteres.html" class="btn-home-back" title="Volver al inicio">
+            <!-- BOTÓN ACTUALIZADO -->
+            <a href="https://carloschaires.github.io/viveturuta.com/" class="btn-home-back" title="Volver al inicio">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 Inicio
             </a>
@@ -506,11 +507,13 @@
 
         <!-- Cabecera Institucional Inmersiva SMA -->
         <header class="site-header-custom">
-            <div class="site-logo-container" onclick="window.location.href='https://carloschaires.github.io/vivesanmigueL/sitiosdeinteres.html'" title="Ir al Catálogo - Vive San Miguel">
+            <!-- LOGO ACTUALIZADO -->
+            <div class="site-logo-container" onclick="window.location.href='https://carloschaires.github.io/viveturuta.com/'" title="Ir a Inicio - Vive San Miguel">
                 <img src="https://lh3.googleusercontent.com/d/1xW3HCK3utNSpM81IAiX-i1UzezDr-cXz" alt="Logo Oficial Vive San Miguel">
             </div>
             <div class="brand-text-group">
-                <a href="https://carloschaires.github.io/vivesanmigueL/sitiosdeinteres.html" class="interactive-brand-title">RUTAS TURÍSTICAS</a>
+                <!-- TÍTULO ACTUALIZADO -->
+                <a href="https://carloschaires.github.io/viveturuta.com/" class="interactive-brand-title">RUTAS TURÍSTICAS</a>
                 <span class="brand-subtitle">San Miguel de Allende • Rutas Temáticas</span>
             </div>
         </header>
@@ -607,13 +610,12 @@
     <script>
         // Función interactiva para que el usuario descargue la página en HTML y pueda verla sin internet
         function descargarHTML() {
-            // Se clona todo el documento actual para guardarlo en un archivo .html
             const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
             const blob = new Blob([htmlContent], {type: 'text/html;charset=utf-8'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'Ruta_Iglesias_SMA_Offline.html'; // Nombre del archivo que se va a descargar
+            a.download = 'Ruta_Iglesias_SMA_Offline.html'; 
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
