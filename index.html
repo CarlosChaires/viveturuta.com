@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruta de Galerías - Vive San Miguel de Allende</title>
+    <title>Catálogo de Rutas Temáticas - Vive San Miguel</title>
     <!-- Fuentes oficiales y elegantes acordes a la identidad colonial de SMA -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,8 +16,8 @@
             --cantera-terracotta: #c87d55;
             --cantera-rose: #d48384;
             --border-subtle: rgba(200, 125, 85, 0.15);
-            --shadow-card: 0 20px 40px rgba(27, 42, 74, 0.06);
-            --shadow-hover: 0 30px 60px rgba(200, 125, 85, 0.18);
+            --shadow-card: 0 15px 35px rgba(27, 42, 74, 0.05);
+            --shadow-hover: 0 25px 50px rgba(200, 125, 85, 0.15);
         }
 
         body {
@@ -50,7 +50,7 @@
             left: 0;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(200, 125, 85, 0.18) 0%, rgba(212, 131, 132, 0.1) 50%, transparent 80%);
+            background: radial-gradient(circle, rgba(200, 125, 85, 0.15) 0%, rgba(212, 131, 132, 0.08) 50%, transparent 80%);
             border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
             pointer-events: none;
             transform: translate(-50%, -50%);
@@ -59,10 +59,11 @@
             filter: blur(50px);
         }
 
+        /* Contenedor más ancho para el catálogo */
         .sma-main-wrapper {
             position: relative;
             z-index: 2;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 50px 20px;
             box-sizing: border-box;
@@ -140,39 +141,13 @@
             transform: translateY(-2px);
         }
 
-        /* --- Barra de Búsqueda Interna --- */
-        .search-container {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .site-search-input {
-            width: 100%;
-            max-width: 450px;
-            padding: 14px 24px;
-            border-radius: 50px;
-            border: 1.5px solid var(--border-subtle);
-            background: var(--white);
-            font-size: 14px;
-            font-family: inherit;
-            color: var(--primary-navy);
-            box-shadow: 0 10px 30px rgba(27, 42, 74, 0.03);
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .site-search-input:focus {
-            border-color: var(--cantera-terracotta);
-            box-shadow: 0 15px 35px rgba(200, 125, 85, 0.15);
-        }
-
         /* --- Cabecera con Logotipo Oficial e Identidad SMA --- */
         .site-header-custom {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 25px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             flex-wrap: wrap;
             text-align: center;
         }
@@ -241,190 +216,194 @@
             margin-top: 6px;
         }
 
-        .wp-block-separator {
-            border: none;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--cantera-terracotta), transparent);
-            margin: 40px 0;
-            opacity: 0.3;
+        /* --- Encabezado del Catálogo de Rutas --- */
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid rgba(200, 125, 85, 0.2);
         }
 
-        /* --- Tarjeta de Contenido Principal --- */
-        .content-card {
-            background: var(--white);
-            border-radius: 28px;
-            padding: 45px;
+        .catalog-header-left {
+            max-width: 650px;
+        }
+
+        .catalog-tag {
+            display: inline-block;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--cantera-terracotta);
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: rgba(200, 125, 85, 0.1);
+            padding: 8px 20px;
+            border-radius: 30px;
             border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-card);
-            position: relative;
-            overflow: hidden;
         }
 
-        .content-card::before {
+        .catalog-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 900;
+            color: var(--primary-navy);
+            margin: 0;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .catalog-header-right {
+            max-width: 450px;
+        }
+
+        .catalog-desc {
+            font-size: 1.05em;
+            color: #57534e;
+            font-weight: 400;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* --- Grid de Rutas (Moderno e Inmersivo) --- */
+        .routes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 40px;
+            align-items: stretch;
+        }
+
+        .route-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-subtle);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+        }
+
+        .route-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--cantera-terracotta);
+        }
+
+        .route-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 4px;
             background: linear-gradient(90deg, var(--cantera-terracotta), var(--cantera-rose));
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        /* --- Estilos Especiales para Rutas Turísticas --- */
-        .route-hero-header {
-            background: linear-gradient(135deg, var(--primary-navy) 0%, #111a2e 100%);
-            color: var(--white);
-            padding: 40px 30px;
-            text-align: center;
-            border-radius: 18px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 25px rgba(27, 42, 74, 0.15);
-            border-bottom: 4px solid var(--cantera-terracotta);
-        }
-        
-        .route-tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: #fde68a;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        
-        .route-title {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--white);
-        }
-        
-        .route-subtitle {
-            margin: 12px 0 0 0;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.8);
-            font-weight: 400;
-            letter-spacing: 0.5px;
+        .route-card:hover::before {
+            opacity: 1;
         }
 
-        .route-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 1fr;
-            gap: 35px;
-            align-items: stretch;
-            margin-bottom: 40px;
-        }
-
-        .route-image-col figure {
-            margin: 0 0 10px 0;
-            border-radius: 18px;
+        .route-image-wrapper {
+            height: 260px;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(27, 42, 74, 0.08);
-            height: calc(100% - 35px);
-            min-height: 280px;
         }
 
-        .route-image-col img {
+        .route-image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .info-box-highlight {
-            background: linear-gradient(135deg, rgba(200, 125, 85, 0.05), rgba(212, 131, 132, 0.08));
-            border-left: 4px solid var(--cantera-terracotta);
-            padding: 25px;
-            border-radius: 0 12px 12px 0;
-            box-shadow: 0 4px 15px rgba(27, 42, 74, 0.04);
-            margin-bottom: 25px;
+        .route-card:hover .route-image-wrapper img {
+            transform: scale(1.08);
         }
 
-        .info-box-highlight p {
-            margin: 0 0 10px 0 !important;
-            color: var(--primary-navy) !important;
-            font-size: 1.05rem !important;
-        }
-
-        .info-box-highlight p:last-child {
-            margin-bottom: 0 !important;
-        }
-
-        .two-columns {
-            columns: 2;
-            column-gap: 20px;
-        }
-
-        /* Estilos de Textos y Títulos Internos */
-        .wp-block-paragraph p {
-            font-size: 1.05rem;
-            color: #333333;
-            margin-bottom: 25px;
-            text-align: justify;
-            line-height: 1.8;
-        }
-
-        .mural-title {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-navy);
-            font-size: 1.45rem;
-            margin-top: 20px;
-            margin-bottom: 15px;
-            line-height: 1.3;
-            border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 8px;
-        }
-
-        .wp-block-list {
-            font-size: 1.05rem;
-            color: #333333;
-            margin-bottom: 25px;
-            padding-left: 20px;
-            line-height: 1.8;
-        }
-
-        .wp-block-list li {
-            margin-bottom: 8px;
-            text-align: justify;
-        }
-
-        .content-card strong {
-            color: var(--primary-navy);
-            font-weight: 700;
-        }
-
-        /* Mapa y Botones */
-        .video-inmersivo-container {
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            border: 1px solid var(--border-subtle);
-            margin-bottom: 30px;
-        }
-
-        .btn-explore-catalogue {
-            display: inline-block;
-            background: var(--cantera-terracotta);
-            color: var(--white);
-            padding: 15px 45px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 13px;
+        .route-duration-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(27, 42, 74, 0.85);
+            backdrop-filter: blur(8px);
+            color: #fde68a;
+            padding: 8px 16px;
+            font-size: 0.75em;
+            border-radius: 30px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(180, 83, 9, 0.3);
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(253, 230, 138, 0.3);
         }
 
-        .btn-explore-catalogue:hover {
-            background: var(--primary-navy);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(27, 42, 74, 0.3);
+        .route-content {
+            padding: 35px 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+            background: linear-gradient(180deg, #ffffff 0%, #fdfaf5 100%);
+        }
+
+        .route-category {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--cantera-terracotta);
+            font-weight: 800;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .route-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6em;
+            font-weight: 800;
+            color: var(--primary-navy);
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+        }
+
+        .route-description {
+            font-size: 0.95em;
+            color: #57534e;
+            line-height: 1.6;
+            margin: 0 0 30px 0;
+            font-weight: 400;
+        }
+
+        .route-action-btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--cantera-terracotta);
+            text-align: center;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1.5px solid var(--cantera-terracotta);
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .route-card:hover .route-action-btn {
+            background: var(--cantera-terracotta);
             color: var(--white);
+            box-shadow: 0 8px 20px rgba(200, 125, 85, 0.25);
+            transform: translateY(-2px);
         }
 
         /* --- Responsive para Móviles --- */
@@ -432,25 +411,21 @@
             .sma-main-wrapper {
                 padding: 30px 15px;
             }
+            .catalog-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                margin-bottom: 40px;
+            }
             .interactive-brand-title {
                 font-size: 2rem;
-            }
-            .content-card {
-                padding: 25px 20px;
             }
             .top-action-bar {
                 flex-direction: column;
                 align-items: stretch;
             }
-            .route-grid {
+            .routes-grid {
                 grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            .two-columns {
-                columns: 1;
-            }
-            .route-image-col figure {
-                min-height: 250px;
             }
         }
     </style>
@@ -478,82 +453,126 @@
             </div>
         </div>
 
-        <!-- Barra de Búsqueda Interactiva -->
-        <div class="search-container">
-            <input type="text" id="siteSearch" class="site-search-input" placeholder="🔍 Buscar más rincones e historia de San Miguel..." />
-        </div>
-
         <!-- Cabecera Institucional Inmersiva SMA -->
         <header class="site-header-custom">
             <div class="site-logo-container" onclick="window.location.href='https://carloschaires.github.io/vivesanmigueL/sitiosdeinteres.html'" title="Ir al Catálogo - Vive San Miguel">
                 <img src="https://lh3.googleusercontent.com/d/1xW3HCK3utNSpM81IAiX-i1UzezDr-cXz" alt="Logo Oficial Vive San Miguel">
             </div>
             <div class="brand-text-group">
-                <a href="https://carloschaires.github.io/vivesanmigueL/sitiosdeinteres.html" class="interactive-brand-title">RUTAS TURÍSTICAS</a>
-                <span class="brand-subtitle">San Miguel de Allende • Arte y Diseño</span>
+                <a href="https://carloschaires.github.io/vivesanmigueL/sitiosdeinteres.html" class="interactive-brand-title">VIVE SAN MIGUEL</a>
+                <span class="brand-subtitle">Catálogo Oficial de Experiencias</span>
             </div>
         </header>
 
-        <hr class="wp-block-separator" />
-
-        <!-- Tarjeta con Contenido Detallado de la Ruta -->
-        <div class="content-card">
-
-            <!-- Encabezado de la Ruta -->
-            <div class="route-hero-header">
-                <span class="route-tag">Patrimonio de la Humanidad · UTSMA</span>
-                <h2 class="route-title">Ruta de Galerías</h2>
-                <p class="route-subtitle">San Miguel de Allende · Expresión Cultural, Arte y Diseño</p>
+        <!-- Encabezado del Catálogo Minimalista -->
+        <div class="catalog-header">
+            <div class="catalog-header-left">
+                <span class="catalog-tag">Patrimonio de la Humanidad</span>
+                <h2 class="catalog-title">Catálogo de Rutas Temáticas</h2>
             </div>
+            <div class="catalog-header-right">
+                <p class="catalog-desc">Un recorrido inmersivo a través de la arquitectura, la fe, los sabores y el arte que dan vida al corazón de San Miguel de Allende.</p>
+            </div>
+        </div>
 
-            <!-- Grid de Imagen e Información General -->
-            <div class="route-grid">
-                
-                <!-- Columna Izquierda: Imagen -->
-                <div class="route-image-col">
-                    <figure class="wp-block-image size-large">
-                        <img src="https://viveturutacom.wordpress.com/wp-content/uploads/2026/07/pexels-irasema-mcallister-29727974-17697368.jpg" alt="Galerías de arte y diseño en San Miguel de Allende" />
-                    </figure>
-                    <p style="text-align: center; font-size: 0.85em; color: var(--text-dark-grey); font-style: italic; margin-top: 5px;">Espacios de expresión artística contemporánea y tradicional</p>
+        <!-- Grid de Tarjetas de Rutas -->
+        <div class="routes-grid">
+
+            <!-- 1. Ruta Calles Icónicas -->
+            <article class="route-card">
+                <div class="route-image-wrapper">
+                    <img src="https://viveturutacom.wordpress.com/wp-content/uploads/2026/07/pexels-christian-israel-palacios-resendiz-228508197-27401451-1.jpg?w=683" alt="Ruta Calles Icónicas">
+                    <div class="route-duration-badge">2 hrs 40 min</div>
                 </div>
-
-                <!-- Columna Derecha: Información y Atractivos -->
-                <div class="route-info-col">
-                    <div class="info-box-highlight">
-                        <p><strong>Enfoque:</strong> Promoción y apreciación del arte local e internacional mediante la interacción directa con las obras.</p>
-                        <p><strong>Duración estimada:</strong> 3 horas.</p>
+                <div class="route-content">
+                    <div>
+                        <span class="route-category">Fotografía y Paisaje Urbano</span>
+                        <h3 class="route-name">Ruta Calles Icónicas</h3>
+                        <p class="route-description">Recorrido por la traza original de 1551, fachadas coloniales y los ángulos visuales más imponentes hacia la Parroquia.</p>
                     </div>
-                    
-                    <h3 class="mural-title">Atractivos incluidos</h3>
-                    <ul class="wp-block-list two-columns">
-                        <li>Galería Exim</li>
-                        <li>Galería MinerArte</li>
-                        <li>Galería Ascender</li>
-                        <li>Galería Casa Michoacana</li>
-                        <li>Fábrica La Aurora</li>
-                    </ul>
+                    <a href="https://viveturutacom.wordpress.com/ruta-debares-y-cantinas/" target="_blank" rel="noopener noreferrer" class="route-action-btn">Explorar Trayecto &rarr;</a>
                 </div>
+            </article>
 
-            </div>
-
-            <!-- Sección de Descripción -->
-            <div class="wp-block-paragraph">
-                <h3 class="mural-title" style="border:none; margin-top: 0;">Descripción de la Experiencia</h3>
-                <p>Esta ruta acerca al visitante a la identidad creativa de San Miguel de Allende a través de un recorrido por galerías que exhiben desde pintura, escultura y diseño de interiores con minerales hasta una vasta selección de arte popular mexicano de múltiples regiones. El trayecto culmina en Fábrica La Aurora, un histórico complejo textil convertido en un vibrante centro de arte, diseño y cultura.</p>
-            </div>
-
-            <!-- Mapa Interactivo -->
-            <div style="margin-top: 40px;">
-                <h3 class="mural-title" style="text-align: center; border:none; margin-top: 0;">Mapa Interactivo</h3>
-                <div class="video-inmersivo-container" style="height: 450px;">
-                    <iframe src="https://www.google.com/maps/d/embed?mid=1ab4cxMAhtotzvkPZIpKSt4nkl5_YGRE" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <!-- 2. Ruta de Iglesias -->
+            <article class="route-card">
+                <div class="route-image-wrapper">
+                    <img src="https://viveturutacom.wordpress.com/wp-content/uploads/2026/07/pexels-unpoquitodefoto-16306587.jpg?w=683" alt="Ruta de Iglesias">
+                    <div class="route-duration-badge">1 hr 30 min</div>
                 </div>
-            </div>
+                <div class="route-content">
+                    <div>
+                        <span class="route-category">Turismo Religioso e Histórico</span>
+                        <h3 class="route-name">Ruta de Iglesias</h3>
+                        <p class="route-description">Legado neogótico y barroco que resguarda siglos de historia espiritual y devoción popular en el destino.</p>
+                    </div>
+                    <a href="https://viveturutacom.wordpress.com/ruta-de-iglesias/" target="_blank" rel="noopener noreferrer" class="route-action-btn">Explorar Trayecto &rarr;</a>
+                </div>
+            </article>
 
-            <!-- Botón de Descarga / Acción -->
-            <div style="text-align: center; margin-top: 40px; margin-bottom: 10px;">
-                <a href="https://drive.google.com/file/d/1foTtb13UAmolELGsACs7kBXhig4AoBZy/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-explore-catalogue">VER GUÍA OFFLINE</a>
-            </div>
+            <!-- 3. Ruta de Bares y Cantinas -->
+            <article class="route-card">
+                <div class="route-image-wrapper">
+                    <img src="https://viveturutacom.wordpress.com/wp-content/uploads/2026/07/pexels-minimoy-34464288.jpg?w=683" alt="Ruta de Bares y Cantinas">
+                    <div class="route-duration-badge">3 horas</div>
+                </div>
+                <div class="route-content">
+                    <div>
+                        <span class="route-category">Mixología y Tradición Social</span>
+                        <h3 class="route-name">Ruta de Bares y Cantinas</h3>
+                        <p class="route-description">Espacios emblemáticos que fusionan la coctelería contemporánea con cantinas tradicionales e historia viva.</p>
+                    </div>
+                    <a href="https://canva.link/h47a7syz9r9e9wy" target="_blank" rel="noopener noreferrer" class="route-action-btn">Explorar Trayecto &rarr;</a>
+                </div>
+            </article>
+
+            <!-- 4. Ruta Edificios con Historia -->
+            <article class="route-card">
+                <div class="route-image-wrapper">
+                    <img src="https://viveturutacom.wordpress.com/wp-content/uploads/2026/07/pexels-quirva-28297760.jpg?w=576" alt="Ruta Edificios con Historia">
+                    <div class="route-duration-badge">1 hr 30 min</div>
+                </div>
+                <div class="route-content">
+                    <div>
+                        <span class="route-category">Arquitectura Virreinal</span>
+                        <h3 class="route-name">Ruta Edificios con Historia</h3>
+                        <p class="route-description">Inmuebles representativos de la época virreinal que guardan los secretos de la nobleza criolla.</p>
+                    </div>
+                    <a href="https://viveturutacom.wordpress.com/ruta-de-edificios-con-historia/" target="_blank" rel="noopener noreferrer" class="route-action-btn">Explorar Trayecto &rarr;</a>
+                </div>
+            </article>
+
+            <!-- 5. Ruta Fuentes Históricas -->
+            <article class="route-card">
+                <div class="route-image-wrapper">
+                    <img src="https://viveturutacom.wordpress.com/wp-content/uploads/2026/07/pexels-di-arana-295719655-13265311-1.jpg?w=768" alt="Ruta Fuentes Históricas">
+                    <div class="route-duration-badge">1 hr 30 min</div>
+                </div>
+                <div class="route-content">
+                    <div>
+                        <span class="route-category">Infraestructura Hidráulica</span>
+                        <h3 class="route-name">Ruta Fuentes Históricas</h3>
+                        <p class="route-description">Descubre la importancia vital del agua a través del antiguo sistema hidráulico colonial y manantiales.</p>
+                    </div>
+                    <a href="https://viveturutacom.wordpress.com/ruta-de-fuentes-historicas/" target="_blank" rel="noopener noreferrer" class="route-action-btn">Explorar Trayecto &rarr;</a>
+                </div>
+            </article>
+
+            <!-- 6. Ruta de Galerías -->
+            <article class="route-card">
+                <div class="route-image-wrapper">
+                    <img src="https://viveturutacom.wordpress.com/wp-content/uploads/2026/07/pexels-bertellifotografia-11489979.jpg?w=683" alt="Ruta de Galerías">
+                    <div class="route-duration-badge">3 horas</div>
+                </div>
+                <div class="route-content">
+                    <div>
+                        <span class="route-category">Arte y Diseño Contemporáneo</span>
+                        <h3 class="route-name">Ruta de Galerías</h3>
+                        <p class="route-description">Un recorrido por espacios de expresión artística y la majestuosa Fábrica La Aurora.</p>
+                    </div>
+                    <a href="https://viveturutacom.wordpress.com/ruta-de-galerias/" target="_blank" rel="noopener noreferrer" class="route-action-btn">Explorar Trayecto &rarr;</a>
+                </div>
+            </article>
 
         </div>
 
