@@ -48,15 +48,15 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 500px;
-            height: 500px;
+            width: 600px;
+            height: 600px;
             background: radial-gradient(circle, rgba(200, 125, 85, 0.18) 0%, rgba(212, 131, 132, 0.1) 50%, transparent 80%);
             border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
             pointer-events: none;
             transform: translate(-50%, -50%);
             z-index: 1;
-            transition: width 0.4s, height 0.4s;
-            filter: blur(50px);
+            transition: width 0.3s, height 0.3s;
+            filter: blur(60px);
         }
 
         .sma-main-wrapper {
@@ -396,7 +396,7 @@
             font-weight: 700;
         }
 
-        /* Galería Estética (Reemplazo del Jetpack Slideshow) */
+        /* Galería Estética */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -465,16 +465,6 @@
             text-align: center;
         }
 
-        .source-credit a {
-            color: var(--cantera-terracotta);
-            text-decoration: underline;
-            font-weight: 600;
-        }
-
-        .source-credit a:hover {
-            color: var(--primary-navy);
-        }
-
         /* --- Responsive para Móviles --- */
         @media screen and (max-width: 768px) {
             .sma-main-wrapper {
@@ -505,7 +495,7 @@
 </head>
 <body>
 
-    <!-- Lienzo de partículas inmersivas de fondo -->
+    <!-- Lienzo de partículas ultra inmersivas de fondo -->
     <canvas id="immersive-canvas"></canvas>
 
     <!-- Animación de fondo interactiva (Sigue el cursor) -->
@@ -628,22 +618,44 @@
 
     </div>
 
-    <!-- Script del cursor interactivo orgánico y partículas inmersivas -->
+    <!-- SCRIPT DEL MOTOR DE PARTÍCULAS ULTRA INMERSIVO (¡ACTUALIZADO!) -->
     <script>
         const cursorGlow = document.getElementById('cursor-glow');
-        let mouseX = 0, mouseY = 0;
-        let glowX = 0, glowY = 0;
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let glowX = mouseX, glowY = mouseY;
+        let isMouseDown = false;
 
+        // Seguir el cursor suavemente
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
+
+        // Detectar clics para el efecto "Agujero Negro"
+        window.addEventListener('mousedown', () => isMouseDown = true);
+        window.addEventListener('mouseup', () => isMouseDown = false);
+        window.addEventListener('touchstart', (e) => {
+            isMouseDown = true;
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        });
+        window.addEventListener('touchend', () => isMouseDown = false);
 
         function animateGlow() {
             glowX += (mouseX - glowX) * 0.08;
             glowY += (mouseY - glowY) * 0.08;
             cursorGlow.style.left = glowX + 'px';
             cursorGlow.style.top = glowY + 'px';
+            
+            // Intensificar el brillo si el mouse está presionado
+            if(isMouseDown) {
+                cursorGlow.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorGlow.style.background = 'radial-gradient(circle, rgba(200, 125, 85, 0.3) 0%, rgba(212, 131, 132, 0.15) 50%, transparent 80%)';
+            } else {
+                cursorGlow.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorGlow.style.background = 'radial-gradient(circle, rgba(200, 125, 85, 0.18) 0%, rgba(212, 131, 132, 0.1) 50%, transparent 80%)';
+            }
+            
             requestAnimationFrame(animateGlow);
         }
         animateGlow();
@@ -667,44 +679,46 @@
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.size = Math.random() * 2 + 0.5;
-                this.baseX = this.x;
-                this.baseY = this.y;
+                this.size = Math.random() * 2 + 1; // Un poco más grandes
                 this.density = (Math.random() * 20) + 5;
-                this.vx = Math.random() * 0.4 - 0.2;
-                this.vy = Math.random() * 0.4 - 0.2;
+                // Velocidad base para que floten por toda la pantalla
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
             }
             update() {
                 let dx = mouseX - this.x;
                 let dy = mouseY - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
-                let forceDirectionX = dx / distance;
-                let forceDirectionY = dy / distance;
-                let maxDistance = 140;
-                let force = (maxDistance - distance) / maxDistance;
-
-                if (distance < maxDistance) {
-                    this.x -= forceDirectionX * force * this.density * 0.5;
-                    this.y -= forceDirectionY * force * this.density * 0.5;
-                } else {
-                    if (this.x !== this.baseX) {
-                        this.x -= (this.x - this.baseX) / 20;
+                
+                if (isMouseDown) {
+                    // EFECTO AGUJERO NEGRO: Las partículas son succionadas hacia el cursor
+                    if (distance < 400) {
+                        let forceDirectionX = dx / distance;
+                        let forceDirectionY = dy / distance;
+                        this.x += forceDirectionX * 6;
+                        this.y += forceDirectionY * 6;
                     }
-                    if (this.y !== this.baseY) {
-                        this.y -= (this.y - this.baseY) / 20;
+                } else {
+                    // EFECTO REPULSIÓN SUAVE
+                    let maxDistance = 150;
+                    let force = (maxDistance - distance) / maxDistance;
+
+                    if (distance < maxDistance) {
+                        this.x -= (dx / distance) * force * this.density * 0.5;
+                        this.y -= (dy / distance) * force * this.density * 0.5;
                     }
                 }
 
-                this.baseX += this.vx;
-                this.baseY += this.vy;
+                // Movimiento constante
+                this.x += this.vx;
+                this.y += this.vy;
 
-                if (this.baseX < 0) this.baseX = width;
-                if (this.baseX > width) this.baseX = 0;
-                if (this.baseY < 0) this.baseY = height;
-                if (this.baseY > height) this.baseY = 0;
+                // Rebotar en los bordes de la pantalla suavemente
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
             }
             draw() {
-                ctx.fillStyle = 'rgba(200, 125, 85, 0.25)';
+                ctx.fillStyle = 'rgba(200, 125, 85, 0.4)'; // Color terracota sutil
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.closePath();
@@ -714,7 +728,8 @@
 
         function initParticles() {
             particles = [];
-            let numberOfParticles = (width * height) / 10000;
+            // Reducimos un poco el cálculo para que las líneas de constelación no saturen la pantalla
+            let numberOfParticles = Math.floor((width * height) / 11000); 
             for (let i = 0; i < numberOfParticles; i++) {
                 particles.push(new Particle());
             }
@@ -722,12 +737,34 @@
 
         initParticles();
 
+        // EFECTO CONSTELACIÓN (Conectar partículas cercanas con líneas)
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x)) 
+                                 + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+                    
+                    // Si están lo suficientemente cerca, trazar una línea
+                    if (distance < 16000) {
+                        let opacityValue = 1 - (distance / 16000);
+                        ctx.strokeStyle = `rgba(200, 125, 85, ${opacityValue * 0.25})`; // Línea terracota muy tenue
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
         function animateParticles() {
             ctx.clearRect(0, 0, width, height);
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
             }
+            connectParticles(); // Llamar a la función de red neuronal/constelación
             requestAnimationFrame(animateParticles);
         }
 
