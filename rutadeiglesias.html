@@ -329,7 +329,7 @@
             padding-bottom: 8px;
         }
 
-        /* --- NUEVO GRID DE ATRACTIVOS (Reemplaza la lista rota) --- */
+        /* --- NUEVO GRID DE ATRACTIVOS (Con corazones) --- */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -363,7 +363,7 @@
         }
 
         .features-grid li::before {
-            content: '✦';
+            content: '❤'; /* CORAZÓN INCORPORADO AQUÍ */
             color: var(--cantera-terracotta);
             font-size: 1.2rem;
             flex-shrink: 0;
@@ -433,6 +433,7 @@
             letter-spacing: 1.5px;
             transition: all 0.3s ease;
             box-shadow: 0 6px 20px rgba(180, 83, 9, 0.3);
+            cursor: pointer; /* Añadido cursor para interactividad */
         }
 
         .btn-explore-catalogue:hover {
@@ -475,14 +476,14 @@
                 min-height: 250px;
             }
             .features-grid {
-                grid-template-columns: 1fr; /* Una sola columna en móviles */
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Lienzo de partículas inmersivas de fondo -->
+    <!-- Lienzo de partículas ultra inmersivas de fondo -->
     <canvas id="immersive-canvas"></canvas>
 
     <!-- Animación de fondo interactiva (Sigue el cursor) -->
@@ -545,7 +546,7 @@
                     </div>
                     
                     <h3 class="mural-title" style="border:none; margin-top:0;">Atractivos incluidos</h3>
-                    <!-- NUEVO GRID DE ATRACTIVOS -->
+                    <!-- NUEVO GRID DE ATRACTIVOS CON CORAZONES -->
                     <ul class="features-grid">
                         <li>Templo de Santa Ana</li>
                         <li>Oratorio de San Felipe Neri</li>
@@ -587,9 +588,10 @@
                 </div>
             </div>
 
-            <!-- Botón de Descarga / Acción -->
+            <!-- Botón de Descarga / Acción Modificado para HTML Offline -->
             <div style="text-align: center; margin-top: 40px; margin-bottom: 10px;">
-                <a href="https://drive.google.com/file/d/1sHqH4uLABjb9lgdkTVuWdwHDM2WZvCr5/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-explore-catalogue">VER GUÍA OFFLINE</a>
+                <!-- Llamando al script JavaScript de descarga -->
+                <a href="#" onclick="descargarHTML(); return false;" class="btn-explore-catalogue">DESCARGAR GUÍA OFFLINE</a>
             </div>
 
             <!-- Créditos Autorizados -->
@@ -601,14 +603,29 @@
 
     </div>
 
-    <!-- SCRIPT DEL MOTOR DE PARTÍCULAS ULTRA INMERSIVO -->
+    <!-- SCRIPT DE DESCARGA DE HTML OFFLINE Y MOTOR DE PARTÍCULAS -->
     <script>
+        // Función interactiva para que el usuario descargue la página en HTML y pueda verla sin internet
+        function descargarHTML() {
+            // Se clona todo el documento actual para guardarlo en un archivo .html
+            const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], {type: 'text/html;charset=utf-8'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Ruta_Iglesias_SMA_Offline.html'; // Nombre del archivo que se va a descargar
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // --- SISTEMA DEL CURSOR INMERSIVO ---
         const cursorGlow = document.getElementById('cursor-glow');
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
         let glowX = mouseX, glowY = mouseY;
         let isMouseDown = false;
 
-        // Seguir el cursor suavemente
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -641,6 +658,7 @@
         }
         animateGlow();
 
+        // --- SISTEMA DEL LIENZO DE PARTÍCULAS ---
         const canvas = document.getElementById('immersive-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
