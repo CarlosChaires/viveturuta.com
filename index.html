@@ -32,6 +32,30 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* --- Animaciones Ultra Inmersivas --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(200, 125, 85, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(200, 125, 85, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(200, 125, 85, 0); }
+        }
+
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
         /* --- Lienzo de partículas inmersivas de fondo --- */
         #immersive-canvas {
             position: fixed;
@@ -77,6 +101,7 @@
             margin-bottom: 40px;
             flex-wrap: wrap;
             gap: 15px;
+            animation: fadeInUp 0.6s ease-out;
         }
 
         .btn-home-back {
@@ -100,7 +125,7 @@
         .btn-home-back:hover {
             background-color: var(--primary-navy);
             color: var(--white);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(27, 42, 74, 0.15);
         }
 
@@ -131,14 +156,14 @@
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             color: var(--white);
             border-color: transparent;
-            transform: translateY(-2px);
+            transform: translateY(-3px) rotate(5deg);
         }
 
         .social-btn.tiktok:hover {
             background: #000000;
             color: var(--white);
             border-color: transparent;
-            transform: translateY(-2px);
+            transform: translateY(-3px) rotate(-5deg);
         }
 
         /* --- Cabecera con Logotipo Oficial e Identidad SMA --- */
@@ -150,6 +175,7 @@
             margin-bottom: 50px;
             flex-wrap: wrap;
             text-align: center;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .site-logo-container {
@@ -164,15 +190,9 @@
             border: 2px solid var(--cantera-terracotta);
             overflow: hidden;
             padding: 10px;
-            animation: float-logo 5s ease-in-out infinite;
+            animation: floatEffect 4s ease-in-out infinite;
             flex-shrink: 0;
             cursor: pointer;
-        }
-
-        @keyframes float-logo {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
-            100% { transform: translateY(0px); }
         }
 
         .site-logo-container img {
@@ -183,7 +203,7 @@
         }
 
         .site-logo-container:hover img {
-            transform: scale(1.08);
+            transform: scale(1.1);
         }
 
         .brand-text-group {
@@ -205,6 +225,11 @@
             letter-spacing: -1px;
             line-height: 1.1;
             margin: 0;
+            transition: color 0.3s ease;
+        }
+        
+        .interactive-brand-title:hover {
+            color: var(--cantera-terracotta);
         }
 
         .brand-subtitle {
@@ -230,6 +255,7 @@
 
         .catalog-header-left {
             max-width: 650px;
+            animation: fadeInUp 1s ease-out;
         }
 
         .catalog-tag {
@@ -258,12 +284,13 @@
 
         .catalog-header-right {
             max-width: 450px;
+            animation: fadeInUp 1.2s ease-out;
         }
 
         .catalog-desc {
-            font-size: 1.05em;
-            color: #57534e;
-            font-weight: 400;
+            font-size: 1.1em;
+            color: #44403c;
+            font-weight: 500;
             line-height: 1.6;
             margin: 0;
         }
@@ -286,12 +313,22 @@
             border: 1px solid var(--border-subtle);
             transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
+            animation: fadeInUp 0.8s ease-out backwards;
         }
 
+        /* Tiempos escalonados para que las tarjetas aparezcan una tras otra */
+        .route-card:nth-child(1) { animation-delay: 0.2s; }
+        .route-card:nth-child(2) { animation-delay: 0.4s; }
+        .route-card:nth-child(3) { animation-delay: 0.6s; }
+        .route-card:nth-child(4) { animation-delay: 0.8s; }
+        .route-card:nth-child(5) { animation-delay: 1.0s; }
+        .route-card:nth-child(6) { animation-delay: 1.2s; }
+
         .route-card:hover {
-            transform: translateY(-12px);
+            transform: translateY(-15px) scale(1.02);
             box-shadow: var(--shadow-hover);
             border-color: var(--cantera-terracotta);
+            z-index: 10;
         }
 
         .route-card::before {
@@ -300,7 +337,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 5px;
             background: linear-gradient(90deg, var(--cantera-terracotta), var(--cantera-rose));
             z-index: 10;
             opacity: 0;
@@ -326,7 +363,7 @@
         }
 
         .route-card:hover .route-image-wrapper img {
-            transform: scale(1.08);
+            transform: scale(1.12) rotate(1deg);
         }
 
         .route-duration-badge {
@@ -344,6 +381,14 @@
             letter-spacing: 1px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             border: 1px solid rgba(253, 230, 138, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .route-card:hover .route-duration-badge {
+            background: var(--cantera-terracotta);
+            color: var(--white);
+            border-color: transparent;
+            transform: scale(1.05);
         }
 
         .route-content {
@@ -372,6 +417,11 @@
             color: var(--primary-navy);
             margin: 0 0 15px 0;
             line-height: 1.2;
+            transition: color 0.3s ease;
+        }
+        
+        .route-card:hover .route-name {
+            color: var(--cantera-terracotta);
         }
 
         .route-description {
@@ -402,8 +452,9 @@
         .route-card:hover .route-action-btn {
             background: var(--cantera-terracotta);
             color: var(--white);
-            box-shadow: 0 8px 20px rgba(200, 125, 85, 0.25);
+            box-shadow: 0 8px 20px rgba(200, 125, 85, 0.4);
             transform: translateY(-2px);
+            animation: pulseGlow 2s infinite;
         }
 
         /* --- Responsive para Móviles --- */
@@ -471,7 +522,8 @@
                 <h2 class="catalog-title">Catálogo de Rutas Temáticas</h2>
             </div>
             <div class="catalog-header-right">
-                <p class="catalog-desc">Un recorrido inmersivo a través de la arquitectura, la fe, los sabores y el arte que dan vida al corazón de San Miguel de Allende.</p>
+                <!-- TEXTO EDITADO CON MÁS ENERGÍA Y ÁNIMO -->
+                <p class="catalog-desc">¡Lánzate a la aventura! Rompe la rutina y vibra con los secretos, los sabores explosivos, las leyendas y el arte que hacen latir el corazón mágico de San Miguel de Allende.</p>
             </div>
         </div>
 
